@@ -38,6 +38,25 @@ In your ``settings.py`` file, add ``urlactive`` to ``INSTALLED_APPS``
         ...
     )
 
+And add ``django.core.context_processors.request`` to your
+``TEMPLATE_CONTEXT_PROCESSORS`` setting in ``settings.py``. Remember to
+include the other default template context processors:
+
+.. code:: python
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        "django.contrib.auth.context_processors.auth",
+        "django.core.context_processors.debug",
+        "django.core.context_processors.i18n",
+        "django.core.context_processors.media",
+        "django.core.context_processors.static",
+        "django.core.context_processors.tz",
+        "django.contrib.messages.context_processors.messages",
+        ...
+        "django.core.context_processors.request",
+        ...
+    )
+
 Usage
 =====
 
@@ -54,8 +73,14 @@ url from which the page is rendered.
 example
 ~~~~~~~
 
+Don't forget to load the template tag library.
+
 .. code:: html
 
+    {% load urlactive %}
+    ...
+    ...
+    ...
     <ul class="nav">
         {% url 'first_url_name' as first_url %}
         <li class="{% url_active first_url %}">
